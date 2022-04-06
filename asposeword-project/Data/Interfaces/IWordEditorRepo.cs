@@ -6,5 +6,6 @@ namespace asposeword_project.Data.Interfaces
     {
         public bool saveWordtoPdf();
         public bool createDocument(DocumentCreateRequestDto documentCreateRequestDto);
+        public bool createForms();
     }
 }
