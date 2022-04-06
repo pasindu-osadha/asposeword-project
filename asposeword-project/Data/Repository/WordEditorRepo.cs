@@ -1,5 +1,6 @@
 ﻿using asposeword_project.Data.Interfaces;
 using Aspose.Words;
+using asposeword_project.Dtos.DocumentDtos;
 
 namespace asposeword_project.Data.Repository
 {
@@ -15,12 +16,35 @@ namespace asposeword_project.Data.Repository
             }
             catch (Exception)
             {
-
-                throw;
-                
+                return false;
+                throw;  
             }
-            return false;
+           
 
         }
+
+        public bool createDocument(DocumentCreateRequestDto documentCreateRequestDto)
+        {
+            try
+            {
+                Document document = new Document();
+                DocumentBuilder documentBuilder = new DocumentBuilder(document);
+
+                documentBuilder.Writeln(documentCreateRequestDto.content);
+
+                document.Save("Files\\" + documentCreateRequestDto.filetype);
+
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+
+        
+        }
+
     }
 }
