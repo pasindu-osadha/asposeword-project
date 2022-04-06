@@ -44,8 +44,9 @@ namespace asposeword_project.Controllers
         [Route("createform")]
         public ActionResult createform()
         {
-            _repo.createForms();
-            return Ok();
+            if (_repo.createForms())
+                return Ok();
+            else return BadRequest();
         }
     }
 }
