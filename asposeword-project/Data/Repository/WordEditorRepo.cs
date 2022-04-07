@@ -82,5 +82,37 @@ namespace asposeword_project.Data.Repository
            
         } 
 
+
+        public void UpdateFormData(FormDataDtos formData)
+        {
+            try
+            {
+                Document doc = new Document("Files\\FormTemplete.docx");
+                FormFieldCollection documentFormFields = doc.Range.FormFields;
+
+                FormField firstnamefield = documentFormFields["firstname"];
+                FormField lastnamefield = documentFormFields["lastname"];
+                FormField address = documentFormFields["address"];
+
+
+                if (firstnamefield.Type.Equals(FieldType.FieldFormTextInput))
+                    firstnamefield.Result = formData.firstName;
+
+                if (lastnamefield.Type.Equals(FieldType.FieldFormTextInput))
+                    lastnamefield.Result = formData.lastName;
+
+                if (address.Type.Equals(FieldType.FieldFormTextInput))
+                    address.Result = formData.address;
+
+                doc.Save("Files\\FormTempleteEdited.docx");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
+
     }
 }

@@ -48,5 +48,16 @@ namespace asposeword_project.Controllers
                 return Ok();
             else return BadRequest();
         }
+
+        [HttpPost]
+        [Route("editformdata")]
+        public ActionResult EditFormData( FormDataDtos formData)
+        {
+            _repo.UpdateFormData(formData);
+            return Ok();
+        }
+
+
+
     }
 }
