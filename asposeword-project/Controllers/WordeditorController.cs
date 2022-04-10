@@ -57,7 +57,13 @@ namespace asposeword_project.Controllers
             return Ok();
         }
 
-
+        [HttpPost]
+        [Route("json")]
+        public ActionResult jsonmethod([FromBody] System.Text.Json.JsonElement entity)
+        {
+            _repo.createDocUsingJson();
+            return Ok();
+        }
 
     }
 }

@@ -3,6 +3,7 @@ using Aspose.Words;
 using asposeword_project.Dtos.DocumentDtos;
 using Aspose.Words.Fields;
 using NUnit.Framework;
+using Aspose.Words.Reporting;
 
 namespace asposeword_project.Data.Repository
 {
@@ -112,6 +113,16 @@ namespace asposeword_project.Data.Repository
                 throw;
             }
            
+        }
+
+
+        public void createDocUsingJson()
+        {
+            Document doc = new Document("Files\\template.docx");
+            JsonDataSource dataSource = new JsonDataSource("Files\\datasource.json");
+            ReportingEngine engine = new ReportingEngine();
+            engine.BuildReport(doc, dataSource, "managers");
+            doc.Save("word.docx");
         }
 
     }
