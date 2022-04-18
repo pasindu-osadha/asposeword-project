@@ -4,6 +4,8 @@ using asposeword_project.Dtos.DocumentDtos;
 using Aspose.Words.Fields;
 using NUnit.Framework;
 using Aspose.Words.Reporting;
+using Newtonsoft.Json;
+using System.Data;
 
 namespace asposeword_project.Data.Repository
 {
@@ -118,11 +120,26 @@ namespace asposeword_project.Data.Repository
 
         public void createDocUsingJson()
         {
-            Document doc = new Document("Files\\template.docx");
-            JsonDataSource dataSource = new JsonDataSource("Files\\datasource.json");
+            
+            Document doc = new Document("Files\\json\\template.docx");
+            JsonDataSource dataSource = new JsonDataSource("Files\\json\\datasource.json");
             ReportingEngine engine = new ReportingEngine();
             engine.BuildReport(doc, dataSource, "managers");
-            doc.Save("word.docx");
+            doc.Save("Files\\json\\jsonresult.docx");
+        }
+
+        public void createDocUsingJsonFile(dynamic data)
+        {
+            string jsonString = JsonConvert.SerializeObject(data);
+            File.WriteAllText(@"Files\\jsoncustom\\customdatasource.json", jsonString);
+
+            Document doc = new Document("Files\\jsoncustom\\template.docx");
+            JsonDataSource dataSource = new JsonDataSource("Files\\jsoncustom\\customdatasource.json");
+           
+            ReportingEngine engine = new ReportingEngine();
+            engine.BuildReport(doc, dataSource, "managers");
+            doc.Save("Files\\jsoncustom\\customjsonresult.docx");
+
         }
 
     }

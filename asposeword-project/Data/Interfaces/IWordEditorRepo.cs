@@ -9,5 +9,6 @@ namespace asposeword_project.Data.Interfaces
         public bool createForms();
         public void UpdateFormData(FormDataDtos formData);
         public void createDocUsingJson();
+        public void createDocUsingJsonFile(dynamic data);
     }
 }
