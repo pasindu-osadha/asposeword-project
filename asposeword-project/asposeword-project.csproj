@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspose.PDF" Version="22.4.0" />
     <PackageReference Include="Aspose.Words" Version="22.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NUnit" Version="3.13.3" />
@@ -15,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Files\pdfEditor\" />
     <Folder Include="Models\" />
-    <Folder Include="Files\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
