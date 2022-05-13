@@ -9,22 +9,28 @@ namespace asposeword_project.Data.Repository
     public class PdfEditorRepo : IPdfEditorRepo
     {
 
-        public  void MakeComplexDocument()
+        public void MakeComplexDocument()
         {
             string _dataDir = "Files\\pdfEditor";
             // Initialize document object
             Document document = new Document();
+
             // Add page
             Page page = document.Pages.Add();
 
 
             // Add Header
-            var header = new TextFragment("New ferry routes in Fall 2020");
+            var header = new TextFragment("Allion Technologies - Audit result");
             header.TextState.Font = FontRepository.FindFont("Arial");
-            header.TextState.FontSize = 24;
+            header.TextState.FontSize = 20;
             header.HorizontalAlignment = HorizontalAlignment.Center;
-            header.Position = new Position(130, 720);
-            page.Paragraphs.Add(header);
+            // header.Position = new Position(0, 820 );
+
+            HeaderFooter h = new HeaderFooter();
+            h.Paragraphs.Add(header);
+            page.Header = h;
+            page.Footer = h;
+
 
             // Add description
             var descriptionText = "Visitors must buy tickets online and tickets are limited to 5,000 per day. Ferry service is operating at half capacity and on a reduced schedule. Expect lineups.";
