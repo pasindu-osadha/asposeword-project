@@ -3,13 +3,14 @@ using System;
 using System.IO;
 using asposeword_project.Data.Interfaces;
 using Aspose.Pdf.Text;
+using asposeword_project.Dtos.DocumentDtos;
 
 namespace asposeword_project.Data.Repository
 {
     public class PdfEditorRepo : IPdfEditorRepo
     {
 
-        public void MakeComplexDocument()
+        public void MakeComplexDocument(RequestPDFDto Dto)
         {
             string _dataDir = "Files\\pdfEditor";
             // Initialize document object
@@ -46,8 +47,8 @@ namespace asposeword_project.Data.Repository
             code_Name_Row_cell.ColSpan = 2;
 
             var codeName_Data_Row = headerTable.Rows.Add();
-            codeName_Data_Row.Cells.Add("IPAS 25A"); // API 
-            var codeName_Data_Row_cell = codeName_Data_Row.Cells.Add("Room Cleaning on Discharge"); // API
+            codeName_Data_Row.Cells.Add(Dto.Code); // API 
+            var codeName_Data_Row_cell = codeName_Data_Row.Cells.Add(Dto.Name); // API
             codeName_Data_Row_cell.ColSpan = 2;
 
 
@@ -56,7 +57,7 @@ namespace asposeword_project.Data.Repository
             description_Row_cell.ColSpan = 3;
 
             var description_Row_Data = headerTable.Rows.Add();
-            var description_Row_Data_cell = description_Row_Data.Cells.Add("This checklist is to be commenced on the day of discharge and completed prior to the room/ unit being occupied by another resident. "); // API
+            var description_Row_Data_cell = description_Row_Data.Cells.Add(Dto.Description); // API
             description_Row_Data_cell.ColSpan = 3;
 
 
@@ -66,9 +67,9 @@ namespace asposeword_project.Data.Repository
             completedBY_Row.Cells.Add("Designation");
 
             var completedBY_Data_Row = headerTable.Rows.Add();
-            completedBY_Data_Row.Cells.Add("10/05/2022"); //API
-            completedBY_Data_Row.Cells.Add("Salindra Gulawita"); //API
-            completedBY_Data_Row.Cells.Add("T"); //API
+            completedBY_Data_Row.Cells.Add(Dto.DateTaken.ToString()); //API
+            completedBY_Data_Row.Cells.Add(Dto.CompletedBy); //API
+            completedBY_Data_Row.Cells.Add(Dto.Designation); //API
 
             page.Paragraphs.Add(headerTable);
 
@@ -98,22 +99,36 @@ namespace asposeword_project.Data.Repository
             //image.File = "Files\\imageFile\\yes.png";
             
 
-            for (int i = 0; i < 125; i++)
+            for (int i = 0; i <Dto.tableData.Count; i++)
             {
               
 
                 var dataTable_DataRow = dataTable.Rows.Add();
-                dataTable_DataRow.Cells.Add("Hand-basin/vanity top and sides wiped down with cleaning agent and mirror cleaned ");//API
+                dataTable_DataRow.Cells.Add(Dto.tableData[i].Criteria);//API
 
                 Image img = new Image();
-                img.File = "Files//imageFile//yes.png";
+
+                switch (Dto.tableData[i].Completed)
+                {
+                    case 0: img.File = "Files//imageFile//no.png";
+                        break;
+                    case 1: img.File = "Files//imageFile//yes.png";
+                        break;
+                    case 2: img.File = "Files//imageFile//undefine.png";
+                        break;
+                    default : img.File = "Files//imageFile//undefine.png";
+                        break;
+                }
+
+                img.FixHeight = 10;
+                img.FixWidth = 10;
                 var c = dataTable_DataRow.Cells.Add();
                 c.Paragraphs.Add(img);
                 
-                dataTable_DataRow.Cells.Add("-");
-                dataTable_DataRow.Cells.Add("-");
-                dataTable_DataRow.Cells.Add("-");
-                dataTable_DataRow.Cells.Add("-");
+                dataTable_DataRow.Cells.Add(Dto.tableData[i].Findir);
+                dataTable_DataRow.Cells.Add(Dto.tableData[i].Response);
+                dataTable_DataRow.Cells.Add(Dto.tableData[i].Corrective);
+                dataTable_DataRow.Cells.Add(Dto.tableData[i].Action);
 
             }
 

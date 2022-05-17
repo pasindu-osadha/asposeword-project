@@ -1,4 +1,5 @@
 ﻿using asposeword_project.Data.Interfaces;
+using asposeword_project.Dtos.DocumentDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ namespace asposeword_project.Controllers
         }
         [HttpPost]
         [Route("createPdf")]
-        public ActionResult craetePdf()
+        public ActionResult craetePdf(RequestPDFDto requestPDFDto)
         {
-            _repo.MakeComplexDocument();
+            _repo.MakeComplexDocument(requestPDFDto);
             return Ok(); 
         }
     }
