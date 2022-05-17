@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 //for dependancy injection 
 builder.Services.AddScoped<IWordEditorRepo, WordEditorRepo>();
+builder.Services.AddScoped<IPdfEditorRepo, PdfEditorRepo>();
 
 var app = builder.Build();
 
