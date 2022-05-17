@@ -94,11 +94,22 @@ namespace asposeword_project.Data.Repository
             dataTable_HeaderRow.Cells.Add("corrective");
             dataTable_HeaderRow.Cells.Add("actions");
 
+            //Image image = new Image();
+            //image.File = "Files\\imageFile\\yes.png";
+            
+
             for (int i = 0; i < 125; i++)
             {
+              
+
                 var dataTable_DataRow = dataTable.Rows.Add();
                 dataTable_DataRow.Cells.Add("Hand-basin/vanity top and sides wiped down with cleaning agent and mirror cleaned ");//API
-                dataTable_DataRow.Cells.Add("-");
+
+                Image img = new Image();
+                img.File = "Files//imageFile//yes.png";
+                var c = dataTable_DataRow.Cells.Add();
+                c.Paragraphs.Add(img);
+                
                 dataTable_DataRow.Cells.Add("-");
                 dataTable_DataRow.Cells.Add("-");
                 dataTable_DataRow.Cells.Add("-");
