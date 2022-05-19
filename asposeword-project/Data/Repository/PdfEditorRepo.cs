@@ -38,6 +38,8 @@ namespace asposeword_project.Data.Repository
 
 
 
+
+
             //Title 
             var title = new TextFragment("Allion Technologies - Audit result");
             title.TextState.FontSize = 20;
@@ -50,7 +52,7 @@ namespace asposeword_project.Data.Repository
             {
                 DefaultCellPadding = new MarginInfo(4.5, 4.5, 4.5, 4.5),
                 Margin =
-                {   
+                {   Top= 20 ,
                     Bottom = 20
                 }
             };
@@ -154,6 +156,52 @@ namespace asposeword_project.Data.Repository
 
             page.Paragraphs.Add(dataTable);
 
+
+            document.ProcessParagraphs();
+
+            foreach (Page page1 in document.Pages)
+            {
+
+                TextStamp textStamp = new TextStamp("https://hcslqms.com");
+                textStamp.HorizontalAlignment = HorizontalAlignment.Left;
+                textStamp.VerticalAlignment = VerticalAlignment.Bottom;
+                textStamp.LeftMargin = 20;
+                textStamp.BottomMargin = 20;
+
+                TextStamp textStampPageNumber = new TextStamp("");
+                textStampPageNumber.HorizontalAlignment = HorizontalAlignment.Right;
+                textStampPageNumber.VerticalAlignment = VerticalAlignment.Bottom;
+                textStampPageNumber.RightMargin = 20;
+                textStampPageNumber.BottomMargin = 20;
+
+
+                textStampPageNumber.Value = "" + page1.Number + " / " + document.Pages.Count;
+                page1.AddStamp(textStamp);
+                page1.AddStamp(textStampPageNumber);
+            }
+
+
+
+            //for (int i = 1; i < document.Pages.Count; i++)
+            //{
+            //    // Create page number stamp
+            //    PageNumberStamp pageNumberStamp = new PageNumberStamp();
+            //    // Whether the stamp is background
+            //    pageNumberStamp.Background = false;
+            //    pageNumberStamp.Format = "Page # of " + document.Pages.Count;
+            //    pageNumberStamp.BottomMargin = 10;
+            //    pageNumberStamp.HorizontalAlignment = HorizontalAlignment.Center;
+            //    pageNumberStamp.StartingNumber = 1;
+            //    // Set text properties
+            //    pageNumberStamp.TextState.Font = FontRepository.FindFont("Arial");
+            //    pageNumberStamp.TextState.FontSize = 14.0F;
+            //    pageNumberStamp.TextState.FontStyle = FontStyles.Bold;
+            //    pageNumberStamp.TextState.FontStyle = FontStyles.Italic;
+            //    pageNumberStamp.TextState.ForegroundColor = Color.Aqua;
+
+            //    // Add stamp to particular page
+            //    document.Pages[i].AddStamp(pageNumberStamp);
+            //}
 
 
             document.Save(System.IO.Path.Combine(_dataDir, "Complex.pdf"));
